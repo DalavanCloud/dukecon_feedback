@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                withMaven {
+                container('maven') {
                     script {
                         if (env.BRANCH_NAME == "develop") {
                             sh 'mvn clean deploy -Pdocker docker:push'
