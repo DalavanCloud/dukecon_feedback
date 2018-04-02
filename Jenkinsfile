@@ -2,9 +2,7 @@
 
 pipeline {
     agent {
-        node {
-            label 'docker'
-        }
+        label "jenkins-maven"
     }
 
     triggers {
