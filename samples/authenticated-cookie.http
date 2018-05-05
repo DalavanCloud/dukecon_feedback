@@ -1,0 +1,6 @@
+### Nicht authentifizierter Zugriff
+
+GET {{baseUrl}}/rest/feedback/event/javaland2018/12345
+Accept: application/json, text/plain, */*
+Cookie: gsScrollPos-600=0; _ga=GA1.1.1170215238.1516562024; gsScrollPos-226=0; gsScrollPos-224=0; gsScrollPos-504=0; JSESSIONID=46A7A9102990A937A16426AC44CC45EF
+###

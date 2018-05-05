@@ -15,12 +15,22 @@ pipeline {
                 container('maven') {
                     script {
                         if (env.BRANCH_NAME == "develop") {
-                            sh 'mvn clean deploy -Pdocker docker:push'
-                            build 'docker_restart_develop_latest'
+                            sh 'mvn -Ptestcontainers clean deploy'
                         } else {
-                            sh 'mvn clean verify'
+                            sh 'mvn -Ptestcontainers clean verify'
                         }
                     }
+                }
+            }
+        }
+        stage('Promote Docker and restart latest') {
+            when {
+                branch 'develop'
+            }
+            steps {
+                withMaven {
+                    sh "mvn -Pdocker docker:build docker:push"
+                    build 'docker_restart_develop_latest'
                 }
             }
         }

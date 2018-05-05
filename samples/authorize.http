@@ -1,0 +1,7 @@
+POST https://dukecon.org/auth/realms/{{realm}}/login-actions/authenticate?code=qFbGJUmHTkQ5URmS16Ts30Ok1yidWpBQwEBzQ0VCfgM&execution=2a9836cf-a4f3-4e83-9319-74c60395bf6b&client_id=dukecon
+### https://dukecon.org/auth/realms/dukecon-developer/protocol/openid-connect/auth?response_type=code&client_id=dukecon&scope=openid%20profile&state=OS9eVzt7esnA5EHBGilw1w24WcsQnjnONskAHVGCaYU%3D&redirect_uri=http://localhost:8080/login/oauth2/code/dukecon-developer
+Content-Type: application/x-www-form-urlencoded
+
+username=test_101@doag.org&password=zKjverwD
+
+###

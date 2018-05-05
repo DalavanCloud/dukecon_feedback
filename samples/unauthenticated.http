@@ -1,0 +1,5 @@
+### Nicht authentifizierter Zugriff
+
+GET {{baseUrl}}/rest/feedback/event/javaland2018/12345
+Accept: application/json, text/plain, */*
+###

@@ -1,7 +1,39 @@
 = DukeCon Feedback Server
-Tim Riemer;
+Tim Riemer; Falk Sippach
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
 
-DukeCon Feedback Server (event and speaker feedback)
+== DukeCon Feedback Server
+* speaker feedback from participants for single events/talks
+* Test-URL: https://latest.dukecon.org/javaland/2018/rest/feedback/event/
+
+=== REST URLs
+* PUT rest/feedback/event/{conferenceId}/{eventId}
+** saves feedback for conference and event id with user principal information
+** request body: FeedbackInput(int rating, String comment)
+** returns 201 if feedback is created
+** returns 401 if no valid auth context (bearer token) exists
+* test REST URLs with IntelliJ HTTP Client (New -> HTTP Request)
+** sample requests under /samples
+*** get-token.http (get bearer token)
+*** put-feedback.http (replace bearer token with current one)
+
+=== DB
+* H2 in local dev mode (default Spring profile)
+** H2-Console: http://localhost:8080/h2
+** jdbc:h2:mem:testdb
+** sa/empty password
+* PostgreSQL
+** in staging and production use Spring profile: postgresql
+** for local/developer testing (and testcontainers) use Spring profile: postgresql-local
+* db migration with flyway
+
+=== TODOs
+* remove GET REST resource from FeedbackController
+* add further return status codes
+** 200 if feedback has been overwritten
+** 403 if feedback is not allowed (anymore), e.g. too late or early
+* configure logging dependency (SLF4j or Logback)
+* retrieve DukeCon Server conference list for checking valid feedback client requests
+* add timestamp to feedback db table

@@ -1,15 +1,127 @@
-# H2
+server:
+  port: 8090
+  use-forward-headers: true
+
+keycloak:
+  realm: dukecon-developer
+  auth-server-url: https://keycloak.dukecon.org/auth
+  ssl-required: none
+  resource: dukecon
+  credentials:
+    secret: b2e0a96a-705a-48c2-8d04-b5d7c0c79bf7
+
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: true
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  flyway:
+    locations: classpath:db/migration/common,classpath:db/migration/h2
+    enabled: true
+
   h2:
     console:
       enabled: true
       path: /h2
-# Datasource
+---
+spring:
+  profiles: latest
+
+keycloak:
+  realm: dukecon-latest
+  credentials:
+    secret: 7585621d-bc63-4718-8d18-fc9cd2c6a22d
+
+---
+
+spring:
+  profiles: postgresql
+
+  jpa:
+    database: POSTGRESQL
+    platform: postgres
+    properties:
+      hibernate:
+        default_schema: ${postgres.schema}
+        temp:
+          use_jdbc_metadata_defaults: false
+  h2:
+    console:
+      enabled: false
+
   datasource:
-    url: jdbc:h2:file:~/test
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: ${spring.flyway.url}
+    username: dukecon
+    password: dukecon
+    driver-class-name: org.postgresql.Driver
+
   flyway:
-    enabled: false
-    locations: classpath:db/migration/common,classpath:db/migration/h2
+    locations: classpath:db/migration/common,classpath:db/migration/postgresql
+    driver: org.postgresql.Driver
+    url: jdbc:postgresql://${postgres.host}:${postgres.port}/${postgres.dbname}
+    user: dukecon
+    password: dukecon
+    schemas: ${postgres.schema}
+
+postgres:
+  host: postgres
+  port: 5432
+  dbname: dukecon
+  schema: feedback
+
+---
+
+spring:
+  profiles: postgresql-local
+
+  jpa:
+    database: POSTGRESQL
+    platform: postgres
+    properties:
+      hibernate:
+        default_schema: ${postgres.schema}
+        temp:
+          use_jdbc_metadata_defaults: false
+  h2:
+    console:
+      enabled: false
+
+  datasource:
+    url: ${spring.flyway.url}
+    username: dukecon
+    password: dukecon
+    driver-class-name: org.postgresql.Driver
+
+  flyway:
+    locations: classpath:db/migration/common,classpath:db/migration/postgresql
+    driver: org.postgresql.Driver
+    url: jdbc:postgresql://${postgres.host}:${postgres.port}/${postgres.dbname}
+    user: dukecon
+    password: dukecon
+    schemas: ${postgres.schema}
+
+postgres:
+  host: localhost
+  port: 5432
+  dbname: dukecon
+  schema: feedback
+
+---
+
+spring:
+  profiles: debug-spring
+
+logging:
+  level:
+    org:
+      springframework: debug
+      flywaydb: debug
+
+---

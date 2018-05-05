@@ -1,0 +1,5 @@
+Spring Boot 2 will be supported from Keycloak 4.0.0.Beta2
+
+For now the changed classes are included here to continue the development.
+
+See https://issues.jboss.org/browse/KEYCLOAK-5098

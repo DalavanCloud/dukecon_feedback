@@ -1,4 +1,4 @@
-package org.dukecon.feedback;
+package org.dukecon.feedback.adapters.main;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class DukeconFeedbackApplicationTests {
+public class DukeconFeedbackMainTest {
 
     @Test
     public void contextLoads() {
