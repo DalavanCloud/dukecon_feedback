@@ -28,9 +28,8 @@ pipeline {
                 branch 'develop'
             }
             steps {
-                withMaven {
-                    sh "mvn -Pdocker docker:build docker:push"
-                    build 'docker_restart_develop_latest'
+                container('maven') {
+                    sh "mvn -Pdocker docker:build"
                 }
             }
         }
