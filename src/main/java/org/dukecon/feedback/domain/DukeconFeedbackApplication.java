@@ -10,9 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DukeconFeedbackApplication {
 
-    @Autowired
     @NonNull
-    private FeedbackStore repository;
+    private final FeedbackStore repository;
 
     public void save (Feedback feedback) {
         repository.save(feedback);

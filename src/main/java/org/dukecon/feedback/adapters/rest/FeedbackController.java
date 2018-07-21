@@ -1,5 +1,6 @@
 package org.dukecon.feedback.adapters.rest;
 
+import lombok.RequiredArgsConstructor;
 import org.dukecon.feedback.domain.DukeconFeedbackApplication;
 import org.dukecon.feedback.domain.model.ConferenceId;
 import org.dukecon.feedback.domain.model.Feedback;
@@ -16,14 +17,14 @@ import javax.validation.Valid;
 
 @RequestMapping("rest/feedback")
 @RestController
+@RequiredArgsConstructor
 @PreAuthorize("isFullyAuthenticated() && hasRole('user')")
 public class FeedbackController {
 
-    @Autowired
-    private DukeconFeedbackApplication dukeconFeedbackApplication;
+    private final DukeconFeedbackApplication dukeconFeedbackApplication;
 
     @PutMapping("event/{conferenceId}/{eventId}")
-    public ResponseEntity sendFeedback(@PathVariable("conferenceId") String conferenceId, @PathVariable("eventId") String eventId, @RequestBody @Valid FeedbackInput feedbackInput) {
+    public ResponseEntity sendFeedback(@PathVariable String conferenceId, @PathVariable String eventId, @RequestBody @Valid FeedbackInput feedbackInput) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Feedback feedback
                 = Feedback.builder()
@@ -38,7 +39,7 @@ public class FeedbackController {
     }
 
     @GetMapping("event/{conferenceId}/{eventId}")
-    public String existsFeedback(@PathVariable("conferenceId") String conferenceId, @PathVariable("eventId") String eventId) {
+    public String existsFeedback(@PathVariable String conferenceId, @PathVariable String eventId) {
         System.out.println(String.format("feedback for %s/%s (Authentication: %s)", conferenceId, eventId, SecurityContextHolder.getContext().getAuthentication()));
         return "Ok (Dummy data)";
     }
