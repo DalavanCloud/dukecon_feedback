@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: draft
-  tag: dev
+  repository: 10.15.252.62:5000/ascheman/dukecon-feedback
+  tag: 1.0.0
   pullPolicy: IfNotPresent
 service:
   name: dukecon-feedback
